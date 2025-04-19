@@ -1,0 +1,20 @@
+{
+  "name": "carbon-footprint-tracker",
+  "version": "1.0.0",
+  "description": "The purpose of this project is to create a digital platform that empowers individuals to monitor, analyze, and reduce their daily carbon emissions. By collecting simple user inputs—such as travel distance, energy usage, and dietary habits—the system calculates the estimated carbon footprint using verified emission factors.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nishantranjan123/Carbon-footprint-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nishantranjan123/Carbon-footprint-Tracker/issues"
+  },
+  "homepage": "https://github.com/Nishantranjan123/Carbon-footprint-Tracker#readme"
+}
