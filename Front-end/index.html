@@ -5,7 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carbon Footprint Tracker</title>
   <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* Add or enhance styles here */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+    }
+
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: center;
+    }
+
+    .site-name {
+      font-weight: bold;
+      font-size: 24px;
+      color: #2d6a4f;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav ul li a,
+    .btn {
+      text-decoration: none;
+      color: #2d6a4f;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn {
+      background-color: #2d6a4f;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #2d6a4f;
+      color: #2d6a4f;
+    }
+
+    .btn-outline:hover,
+    .btn:hover {
+      background-color: #1b4332;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #d8f3dc, #b7e4c7);
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #1b4332;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #344e41;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .info-section {
+      padding: 40px 20px;
+      background-color: #ffffff;
+      text-align: center;
+    }
+
+    .info-section h2 {
+      color: #2d6a4f;
+    }
+
+    .info-section p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <nav>
@@ -14,8 +117,8 @@
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-        <li><button class="btn">Sign In</button></li>
-        <li><button class="btn btn-outline">Sign Up</button></li>
+        <li><button class="btn" onclick="window.location.href='signin.html'">Sign In</button></li>
+        <li><button class="btn btn-outline" onclick="window.location.href='signup.html'">Sign Up</button></li>
       </ul>
     </nav>
   </header>
@@ -26,7 +129,8 @@
       <p>A website that helps users track, analyze, and reduce their carbon emissions based on their daily activities—travel, food, electricity, shopping, etc.</p>
       <div class="hero-buttons">
         <button class="btn">Get Details</button>
-        <button class="btn btn-outline">Calculate</button>
+        <!-- Button with smooth transition and redirect -->
+        <button class="btn btn-outline" onclick="redirectToCalc()">Calculate</button>
       </div>
     </section>
 
@@ -35,5 +139,15 @@
       <p>Carbon footprint analysis calculates the total greenhouse gas emissions caused by an individual's or organization's activities. It typically includes emissions from travel, food consumption, energy usage, and lifestyle choices.</p>
     </section>
   </main>
+
+  <script>
+    function redirectToCalc() {
+      // Optional delay for a transition effect before page change
+      document.querySelector(".btn-outline").classList.add("clicked");
+      setTimeout(() => {
+        window.location.href = "index2.html";
+      }, 200); // 200ms delay for a smoother UX
+    }
+  </script>
 </body>
 </html>
