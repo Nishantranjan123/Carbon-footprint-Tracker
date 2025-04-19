@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="style.css"/>
 
   <style>
-    /* Add or enhance styles here */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f8;
@@ -21,6 +24,9 @@
       padding: 15px 30px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .site-name {
@@ -59,14 +65,18 @@
     }
 
     .btn-outline:hover,
-    .btn:hover {
+    .btn:hover,
+    nav ul li a:hover {
       background-color: #1b4332;
       color: white;
       transform: scale(1.05);
     }
 
-    .hero {
+    section {
       padding: 60px 20px;
+    }
+
+    .hero {
       text-align: center;
       background: linear-gradient(to right, #d8f3dc, #b7e4c7);
     }
@@ -90,21 +100,28 @@
       gap: 20px;
     }
 
-    .info-section {
-      padding: 40px 20px;
-      background-color: #ffffff;
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      color: #2d6a4f;
+      margin-bottom: 15px;
+    }
+
+    .section-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #444;
+      line-height: 1.6;
       text-align: center;
     }
 
-    .info-section h2 {
-      color: #2d6a4f;
-    }
-
-    .info-section p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 16px;
-      color: #333;
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2d6a4f;
+      color: white;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -114,9 +131,9 @@
     <nav>
       <div class="site-name">Carbon Tracker</div>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
         <li><button class="btn" onclick="window.location.href='signin.html'">Sign In</button></li>
         <li><button class="btn btn-outline" onclick="window.location.href='signup.html'">Sign Up</button></li>
       </ul>
@@ -124,29 +141,48 @@
   </header>
 
   <main>
-    <section class="hero">
+    <!-- HOME Section -->
+    <section class="hero" id="home">
       <h1>Calculate Your Daily Impact</h1>
-      <p>A website that helps users track, analyze, and reduce their carbon emissions based on their daily activities—travel, food, electricity, shopping, etc.</p>
+      <p>A platform that empowers you to monitor and reduce your carbon footprint through simple daily tracking.</p>
       <div class="hero-buttons">
         <button class="btn">Get Details</button>
-        <!-- Button with smooth transition and redirect -->
         <button class="btn btn-outline" onclick="redirectToCalc()">Calculate</button>
       </div>
     </section>
 
-    <section class="info-section">
-      <h2>Carbon Footprint Analysis</h2>
-      <p>Carbon footprint analysis calculates the total greenhouse gas emissions caused by an individual's or organization's activities. It typically includes emissions from travel, food consumption, energy usage, and lifestyle choices.</p>
+    <!-- ABOUT Section -->
+    <section id="about">
+      <h2 class="section-title">About Carbon Footprint Tracker</h2>
+      <p class="section-text">
+        Our mission is to help individuals and communities understand their environmental impact.
+        By calculating the carbon emissions associated with travel, diet, energy, and consumption, we provide real-time
+        suggestions and progress tracking that encourages sustainable living. This platform uses reliable emission
+        factors and personalized insights to promote eco-conscious behavior and climate action.
+      </p>
+    </section>
+
+    <!-- CONTACT Section -->
+    <section id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-text">
+        Have questions, suggestions, or feedback? Reach out to us at  
+        <strong><a href="mailto:support@carbontracker.com">support@carbontracker.com</a></strong>  
+        or fill out our feedback form.  
+        We're committed to building a better, greener future with you.
+      </p>
     </section>
   </main>
 
+  <footer>
+    &copy; 2025 Carbon Tracker. All rights reserved.
+  </footer>
+
   <script>
     function redirectToCalc() {
-      // Optional delay for a transition effect before page change
-      document.querySelector(".btn-outline").classList.add("clicked");
       setTimeout(() => {
         window.location.href = "index2.html";
-      }, 200); // 200ms delay for a smoother UX
+      }, 200);
     }
   </script>
 </body>

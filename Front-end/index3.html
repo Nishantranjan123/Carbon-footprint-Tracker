@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard - Carbon Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+    }
+
+    .header {
+      background-color: #2d6a4f;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .dashboard {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .dashboard h2 {
+      color: #2d6a4f;
+    }
+
+    .data-block {
+      margin-top: 20px;
+      background-color: #e9f5ee;
+      padding: 20px;
+      border-left: 4px solid #2d6a4f;
+      border-radius: 6px;
+    }
+
+    .btn-logout {
+      margin-top: 30px;
+      background-color: #1b4332;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>Track your environmental impact and progress below</p>
+  </div>
+
+  <div class="dashboard">
+    <h2>Hello, [User]</h2>
+    <div class="data-block">
+      <h4>Your Recent Activity</h4>
+      <p><strong>Travel:</strong> 15 km</p>
+      <p><strong>Food:</strong> Non-vegetarian</p>
+      <p><strong>Energy Use:</strong> 5.2 kWh</p>
+    </div>
+
+    <div class="data-block">
+      <h4>Carbon Footprint Estimate</h4>
+      <p><strong>Total Emissions:</strong> 9.75 kg CO₂</p>
+    </div>
+
+    <div class="data-block">
+      <h4>Tips to Reduce Your Impact</h4>
+      <ul>
+        <li>Consider walking or biking short distances.</li>
+        <li>Switch to energy-efficient appliances.</li>
+        <li>Try meat-free meals twice a week.</li>
+      </ul>
+    </div>
+
+    <button class="btn-logout" onclick="logout()">Log Out</button>
+  </div>
+
+  <script>
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
