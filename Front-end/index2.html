@@ -93,21 +93,38 @@
       <label for="travel">Travel Distance (km):</label>
       <input type="number" id="travel" required />
 
+      <label for="vehicleType">Type of Vehicle:</label>
+      <select id="vehicleType">
+        <option value="">-- Select --</option>
+        <option value="electric">Electric</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="gasoline">Gasoline</option>
+      </select>
+
       <label for="food">Food Type:</label>
       <select id="food" required>
         <option value="">-- Select --</option>
         <option value="veg">Vegetarian</option>
         <option value="non-veg">Non-Vegetarian</option>
+        <option value="vegan">Vegan</option>
+        <option value="pescatarian">Pescatarian</option>
       </select>
 
       <label for="energy">Electricity Used (kWh):</label>
       <input type="number" id="energy" required />
+
+      <label for="waterUsage">Average Daily Water Usage (liters):</label>
+      <input type="number" id="waterUsage" required />
+
+      <label for="recycling">Percentage of Waste Recycled (%):</label>
+      <input type="number" id="recycling" min="0" max="100" required />
 
       <button type="submit" class="btn-submit">Calculate Footprint</button>
     </form>
 
     <div class="result" id="resultBox" style="display:none">
       <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
+      <button class="btn-submit" id="calculateAgainBtn">Calculate Again</button>
     </div>
 
     <div class="solution" id="solutionBox" style="display:none">
@@ -123,43 +140,92 @@
   </footer>
 
   <script>
-    document.getElementById('carbonForm').addEventListener('submit', function(e) {
+    document.getElementById('carbonForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const travel = parseFloat(document.getElementById('travel').value);
+      const vehicleType = document.getElementById('vehicleType').value;
       const food = document.getElementById('food').value;
       const energy = parseFloat(document.getElementById('energy').value);
+      const waterUsage = parseFloat(document.getElementById('waterUsage').value);
+      const recycling = parseFloat(document.getElementById('recycling').value);
 
+      // Validate input values
+      if (isNaN(travel) || isNaN(energy) || isNaN(waterUsage) || isNaN(recycling)) {
+        alert('Please enter valid numbers for travel, energy, water usage, and recycling.');
+        return;
+      }
+
+      if (food === '') {
+        alert('Please select a food type.');
+        return;
+      }
+
+      // Calculate the footprint
       let footprint = 0;
-      footprint += travel * 0.12;
-      footprint += food === 'non-veg' ? 5 : 2;
-      footprint += energy * 0.45;
+      footprint += travel * 0.12; // Example calculation for travel
+      footprint += food === 'non-veg' ? 5 : (food === 'vegan' ? 1 : 2); // Example calculation for food
+      footprint += energy * 0.45; // Example calculation for energy
+      footprint += waterUsage * 0.02; // Example calculation for water usage
+      footprint -= recycling * 0.1; // Reduce footprint based on recycling percentage
 
-      document.getElementById('footprintValue').textContent = footprint.toFixed(2);
-      document.getElementById('resultBox').style.display = 'block';
-      document.getElementById('solutionBox').style.display = 'block';
+      // Adjust footprint based on vehicle type
+      if (vehicleType === 'electric') {
+        footprint -= 1; // Example reduction for electric vehicles
+      } else if (vehicleType === 'hybrid') {
+        footprint -= 0.5; // Example reduction for hybrid vehicles
+      }
 
-      const solutionList = document.getElementById('solutionList');
-      solutionList.innerHTML = '';
-
+      // Store results in local storage
+      localStorage.setItem('footprintValue', footprint.toFixed(2));
+      
+      // Prepare suggestions based on the input
+      const solutionList = [];
       if (travel > 10) {
-        solutionList.innerHTML += '<li>Consider using public transport or carpooling.</li>';
+        solutionList.push('Consider using public transport or carpooling.');
       } else {
-        solutionList.innerHTML += '<li>Great job minimizing travel emissions!</li>';
+        solutionList.push('Great job minimizing travel emissions!');
       }
 
       if (food === 'non-veg') {
-        solutionList.innerHTML += '<li>Try reducing meat intake; plant-based diets have lower emissions.</li>';
+        solutionList.push('Try reducing meat intake; plant-based diets have lower emissions.');
+      } else if (food === 'vegan') {
+        solutionList.push('Great choice! Vegan diets are very climate-friendly.');
       } else {
-        solutionList.innerHTML += '<li>Vegetarian diets are climate-friendly. Keep it up!</li>';
+        solutionList.push('Vegetarian diets are climate-friendly. Keep it up!');
       }
 
       if (energy > 3) {
-        solutionList.innerHTML += '<li>Consider switching to energy-efficient appliances.</li>';
+        solutionList.push('Consider switching to energy-efficient appliances to reduce your energy consumption.');
+        solutionList.push('Unplug devices when not in use to save energy.');
+        solutionList.push('Consider using LED bulbs instead of incandescent ones, as they use less energy.');
       } else {
-        solutionList.innerHTML += '<li>Your electricity use is within a sustainable range.</li>';
+        solutionList.push('Your electricity use is within a sustainable range. Great job!');
       }
+
+      if (waterUsage > 100) {
+        solutionList.push('Consider reducing water usage; small changes can make a big difference.');
+      } else {
+        solutionList.push('Your water usage is within a sustainable range. Great job!');
+      }
+
+      if (recycling < 50) {
+        solutionList.push('Try to increase your recycling efforts to reduce waste.');
+      } else {
+        solutionList.push('Excellent! Keep up the good work with recycling.');
+      }
+
+      // Store suggestions in local storage
+      localStorage.setItem('solutionList', JSON.stringify(solutionList));
+
+      // Redirect to results page
+      window.location.href = 'result.html';
     });
+
+    // Handle the Calculate Again button
+    document.getElementById('calculateAgainBtn').onclick = function() {
+      window.location.href = 'index2.html'; // Redirect to the calculation page
+    };
   </script>
 </body>
 </html>

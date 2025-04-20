@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculation Results - Carbon Footprint Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2d6a4f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d6a4f;
+      margin-bottom: 20px;
+    }
+
+    .result, .solution {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e9f5ee;
+      border-left: 5px solid #2d6a4f;
+      border-radius: 6px;
+    }
+
+    .btn {
+      background-color: #2d6a4f;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #1b4332;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2d6a4f;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Calculation Results</h1>
+  </header>
+
+  <div class="container">
+    <h2>Your Results</h2>
+    <div class="result">
+      <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
+    </div>
+
+    <div class="solution">
+      <h4>Suggestions to Reduce Your Footprint:</h4>
+      <ul id="solutionList"></ul>
+    </div>
+
+    <button class="btn" id="calculateAgainBtn">Calculate Again</button>
+    <button class="btn" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+  </div>
+
+  <footer>
+    &copy; 2025 Carbon Tracker. Greener choices start with you.
+  </footer>
+
+  <script>
+    // Retrieve the results from local storage
+    const footprintValue = localStorage.getItem('footprintValue');
+    const solutionList = JSON.parse(localStorage.getItem('solutionList')) || [];
+
+    // Display the results
+    document.getElementById('footprintValue').textContent = footprintValue;
+
+    const solutionListElement = document.getElementById('solutionList');
+    solutionList.forEach(solution => {
+      const li = document.createElement('li');
+      li.textContent = solution;
+      solutionListElement.appendChild(li);
+    });
+
+    // Handle the Calculate Again button
+    document.getElementById('calculateAgainBtn').onclick = function() {
+      window.location.href = 'index2.html'; // Redirect to the calculation page
+    };
+  </script>
+</body>
+</html>

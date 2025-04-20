@@ -65,6 +65,21 @@
       border-radius: 6px;
       cursor: pointer;
     }
+    .btn-home {
+    background-color: #2d6a4f;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #1b4332;
+}
   </style>
 </head>
 <body>
@@ -73,15 +88,14 @@
     <p>Track your environmental impact and progress below</p>
   </div>
   <div style="text-align: center; margin-top: 20px;">
+    <button class="btn-home" onclick="window.location.href='index.html'">🏠 Home</button>
+</div>
+  <div style="text-align: center; margin-top: 20px;">
     <button class="btn-calculate" onclick="window.location.href='index2.html'">🚀 Calculate My Footprint</button>
   </div>
   
   <div class="dashboard">
-<<<<<<< HEAD
-    <h2 id="greeting">Hello, User</h2>
-=======
     <h2 id="greeting">Hello, User</h2> <!-- This will be updated with the user's name -->
->>>>>>> 92fef1e (major updates)
 
     <div class="data-block">
       <h4>Your Recent Activity</h4>
@@ -120,48 +134,48 @@
     };
 
     async function fetchRecentActivities() {
-    const token = localStorage.getItem('token'); // Get the token from local storage
-    console.log('Retrieved Token:', token);
-    const response = await fetch('http://localhost:5000/api/activity/recent', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`, // Include the token here
-        },
-    });
+      const token = localStorage.getItem('token'); // Get the token from local storage
+      const response = await fetch('http://localhost:5000/api/activity/recent', {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`, // Include the token here
+          },
+      });
 
-    if (response.ok) {
-        const activities = await response.json();
-        const activityList = document.getElementById('activity-list');
-        let totalFootprint = 0; // Variable to calculate total footprint
+      if (response.ok) {
+          const activities = await response.json();
+          const activityList = document.getElementById('activity-list');
+          let totalFootprint = 0; // Variable to calculate total footprint
 
-        activities.forEach(activity => {
+          activities.forEach(activity => {
             const listItem = document.createElement('li');
-            const activityDate = new Date(activity.date).toLocaleString(); // Format the date
-            const footprint = activity.activityData.footprint; // Get the footprint from activity data
-            totalFootprint += footprint; // Accumulate the total footprint
+          const activityDate = new Date(activity.date).toLocaleString(); // Format the date
+          const footprint = activity.activityData.footprint; // Get the footprint from activity data
+          totalFootprint += footprint; // Accumulate the total footprint
 
-            listItem.textContent = `Travel: ${activity.activityData.travel} km, Food: ${activity.activityData.food}, Energy: ${activity.activityData.energy} kWh, Date: ${activityDate}`;
-            activityList.appendChild(listItem);
-        });
+          listItem.textContent = `Travel: ${activity.activityData.travel} km, Food: ${activity.activityData.food}, Energy: ${activity.activityData.energy} kWh, Date: ${activityDate}`;
+          activityList.appendChild(listItem);
+      });
 
-        // Update the total footprint estimate in the dashboard
-        document.getElementById('footprint-estimate').innerHTML = `<strong>Total Emissions:</strong> ${totalFootprint.toFixed(2)} kg CO₂`;
+      // Update the total footprint estimate in the dashboard
+      document.getElementById('footprint-estimate').innerHTML = `<strong>Total Emissions:</strong> ${totalFootprint.toFixed(2)} kg CO₂`;
     } else {
         console.error('Error fetching activities:', response.statusText);
         alert('Failed to load recent activities. Please try again later.');
     }
 }
 
-    function logout() {
-      localStorage.removeItem("carbonUsername"); // Clear saved name
-      localStorage.removeItem("token"); // Clear saved token
-      alert("You have been logged out.");
-      window.location.href = "index.html"; // Redirect to login page
-    }
-  </script>
-  <div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #2d6a4f; color: white; padding: 12px 20px; border-radius: 6px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+function logout() {
+    localStorage.removeItem("carbonUsername"); // Clear saved name
+    localStorage.removeItem("token"); // Clear saved token
+    alert("You have been logged out.");
+    window.location.href = "index.html"; // Redirect to login page
+}
+</script>
+
+<div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #2d6a4f; color: white; padding: 12px 20px; border-radius: 6px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
     Welcome back!
-  </div>
+</div>
   
 </body>
 </html>

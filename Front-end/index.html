@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css"/>
 
   <style>
+    /* Your existing styles */
     html {
       scroll-behavior: smooth;
     }
@@ -130,12 +131,11 @@
   <header>
     <nav>
       <div class="site-name">Carbon Tracker</div>
-      <ul>
+      <ul id="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><button class="btn" onclick="window.location.href='signin.html'">Sign In</button></li>
-        <li><button class="btn btn-outline" onclick="window.location.href='signup.html'">Sign Up</button></li>
+        <li id="auth-links"></li>
       </ul>
     </nav>
   </header>
@@ -146,40 +146,76 @@
       <h1>Calculate Your Daily Impact</h1>
       <p>A platform that empowers you to monitor and reduce your carbon footprint through simple daily tracking.</p>
       <div class="hero-buttons">
-        <button class="btn" onclick="window.location.href='features.html'">Get Details</button>
-      </div>
-      
-    </section>
+        <button class="btn" id="calculate-btn">Calculate My Footprint</button>
+      <button class="btn" onclick="window.location.href='features.html'">Get Details</button>
+    </div>
+  </section>
 
-    <!-- ABOUT Section -->
-    <section id="about">
-      <h2 class="section-title">About Carbon Footprint Tracker</h2>
-      <p class="section-text">
-        Our mission is to help individuals and communities understand their environmental impact.
-        By calculating the carbon emissions associated with travel, diet, energy, and consumption, we provide real-time
-        suggestions and progress tracking that encourages sustainable living. This platform uses reliable emission
-        factors and personalized insights to promote eco-conscious behavior and climate action.
-      </p>
-    </section>
+  <!-- ABOUT Section -->
+  <section id="about">
+    <h2 class="section-title">About Carbon Footprint Tracker</h2>
+    <p class="section-text">
+      Our mission is to help individuals and communities understand their environmental impact.
+      By calculating the carbon emissions associated with travel, diet, energy, and consumption, we provide real-time
+      suggestions and progress tracking that encourages sustainable living. This platform uses reliable emission
+      factors and personalized insights to promote eco-conscious behavior and climate action.
+    </p>
+  </section>
 
-    <!-- CONTACT Section -->
-    <section id="contact">
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-text">
-        Have questions, suggestions, or feedback? Reach out to us at  
-        <strong><a href="mailto:support@carbontracker.com">support@carbontracker.com</a></strong>  
-        or fill out our feedback form.  
-        We're committed to building a better, greener future with you.
-      </p>
-    </section>
-  </main>
-  
+  <!-- CONTACT Section -->
+  <section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-text">
+      Have questions, suggestions, or feedback? Reach out to us at  
+      <strong><a href="mailto:support@carbontracker.com">support@carbontracker.com</a></strong>  
+      or fill out our feedback form.  
+      We're committed to building a better, greener future with you.
+    </p>
+  </section>
+</main>
 
+<footer>
+  &copy; 2025 Carbon Tracker. All rights reserved.
+</footer>
 
-  <footer>
-    &copy; 2025 Carbon Tracker. All rights reserved.
-  </footer>
+<script>
+  // Check if the user is logged in
+  window.onload = function() {
+    const token = localStorage.getItem('token');
+    const authLinks = document.getElementById('auth-links');
 
-  
+    if (token) {
+      // User is logged in, show dashboard and logout button
+      authLinks.innerHTML = `
+        <button class="btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        <button class="btn btn-outline" onclick="logout()">Log Out</button>
+      `;
+    } else {
+      // User is not logged in, show sign in and sign up buttons
+      authLinks.innerHTML = `
+        <button class="btn" onclick="window.location.href='signin.html'">Sign In</button>
+        <button class="btn btn-outline" onclick="window.location.href='signup.html'">Sign Up</button>
+      `;
+    }
+
+    // Add event listener for the Calculate button
+    document.getElementById('calculate-btn').onclick = function() {
+      if (token) {
+        // Redirect to the calculate page if logged in
+        window.location.href = 'index2.html';
+      } else {
+        // Redirect to the sign-in page if not logged in
+        window.location.href = 'signin.html';
+      }
+    };
+  };
+
+  function logout() {
+    localStorage.removeItem('token'); // Clear the token
+    localStorage.removeItem('carbonUsername'); // Clear the username
+    alert("You have been logged out.");
+    window.location.reload(); // Reload the page to update the navigation
+  }
+</script>
 </body>
 </html>
