@@ -54,11 +54,19 @@
     const form = document.getElementById('login-form');
 
     form.addEventListener('submit', async (e) => {
+<<<<<<< HEAD
       e.preventDefault();
+=======
+      e.preventDefault();  // Prevents the page from refreshing on form submit
+>>>>>>> 92fef1e (major updates)
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
+<<<<<<< HEAD
+=======
+      // Make a POST request to the backend
+>>>>>>> 92fef1e (major updates)
       try {
         const response = await fetch('http://localhost:5000/api/auth/login', {
           method: 'POST',
@@ -71,6 +79,7 @@
         const result = await response.json();
 
         if (response.ok) {
+<<<<<<< HEAD
           alert('Login successful!');
 
           // Store token and username in localStorage
@@ -86,6 +95,21 @@
         } else {
           alert(`Error: ${result.msg || 'Login failed'}`);
         }
+=======
+    alert('Login successful!');
+    console.log(result); // This should contain the token and user info
+
+    // Store the token and username in local storage
+    console.log('Token:', result.token); 
+    localStorage.setItem('token', result.token);
+    localStorage.setItem('carbonUsername', result.name); // Store the user's name
+
+    // Redirect to the dashboard
+    window.location.href = 'dashboard.html'; // Change this to your actual dashboard page URL
+} else {
+    alert(`Error: ${result.msg || 'Login failed'}`); // Use result.msg for error messages
+}
+>>>>>>> 92fef1e (major updates)
       } catch (error) {
         console.error('Error:', error);
         alert('Something went wrong. Please try again later.');

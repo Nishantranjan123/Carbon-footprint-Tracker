@@ -5,21 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>User Dashboard - Carbon Tracker</title>
   <style>
+    /* Your existing styles */
     .btn-calculate {
-  background-color: #2d6a4f;
-  color: white;
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
+      background-color: #2d6a4f;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
 
-.btn-calculate:hover {
-  background-color: #1b4332;
-}
+    .btn-calculate:hover {
+      background-color: #1b4332;
+    }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -75,22 +76,23 @@
     <button class="btn-calculate" onclick="window.location.href='index2.html'">🚀 Calculate My Footprint</button>
   </div>
   
-
   <div class="dashboard">
+<<<<<<< HEAD
     <h2 id="greeting">Hello, User</h2>
+=======
+    <h2 id="greeting">Hello, User</h2> <!-- This will be updated with the user's name -->
+>>>>>>> 92fef1e (major updates)
 
     <div class="data-block">
       <h4>Your Recent Activity</h4>
-      <p><strong>Travel:</strong> 15 km</p>
-      <p><strong>Food:</strong> Non-vegetarian</p>
-      <p><strong>Energy Use:</strong> 5.2 kWh</p>
+      <ul id="activity-list"></ul> <!-- List to display recent activities -->
     </div>
-
+  
     <div class="data-block">
       <h4>Carbon Footprint Estimate</h4>
-      <p><strong>Total Emissions:</strong> 9.75 kg CO₂</p>
+      <p id="footprint-estimate"><strong>Total Emissions:</strong> 0 kg CO₂</p> <!-- Placeholder for footprint -->
     </div>
-
+  
     <div class="data-block">
       <h4>Tips to Reduce Your Impact</h4>
       <ul>
@@ -99,14 +101,62 @@
         <li>Try meat-free meals twice a week.</li>
       </ul>
     </div>
-
+  
     <button class="btn-logout" onclick="logout()">Log Out</button>
   </div>
-
+  
   <script>
+    window.onload = function () {
+      const name = localStorage.getItem("carbonUsername");
+      const greeting = document.getElementById("greeting");
+
+      if (name) {
+        greeting.textContent = `Hello, ${name}`; // Update greeting with user's name
+      } else {
+        greeting.textContent = "Hello, Guest"; // Fallback if no name is found
+      }
+
+      fetchRecentActivities(); // Fetch recent activities on load
+    };
+
+    async function fetchRecentActivities() {
+    const token = localStorage.getItem('token'); // Get the token from local storage
+    console.log('Retrieved Token:', token);
+    const response = await fetch('http://localhost:5000/api/activity/recent', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`, // Include the token here
+        },
+    });
+
+    if (response.ok) {
+        const activities = await response.json();
+        const activityList = document.getElementById('activity-list');
+        let totalFootprint = 0; // Variable to calculate total footprint
+
+        activities.forEach(activity => {
+            const listItem = document.createElement('li');
+            const activityDate = new Date(activity.date).toLocaleString(); // Format the date
+            const footprint = activity.activityData.footprint; // Get the footprint from activity data
+            totalFootprint += footprint; // Accumulate the total footprint
+
+            listItem.textContent = `Travel: ${activity.activityData.travel} km, Food: ${activity.activityData.food}, Energy: ${activity.activityData.energy} kWh, Date: ${activityDate}`;
+            activityList.appendChild(listItem);
+        });
+
+        // Update the total footprint estimate in the dashboard
+        document.getElementById('footprint-estimate').innerHTML = `<strong>Total Emissions:</strong> ${totalFootprint.toFixed(2)} kg CO₂`;
+    } else {
+        console.error('Error fetching activities:', response.statusText);
+        alert('Failed to load recent activities. Please try again later.');
+    }
+}
+
     function logout() {
+      localStorage.removeItem("carbonUsername"); // Clear saved name
+      localStorage.removeItem("token"); // Clear saved token
       alert("You have been logged out.");
-      window.location.href = "index.html";
+      window.location.href = "index.html"; // Redirect to login page
     }
   </script>
   <div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #2d6a4f; color: white; padding: 12px 20px; border-radius: 6px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
@@ -115,31 +165,3 @@
   
 </body>
 </html>
-<script>
-  window.onload = function () {
-    const name = localStorage.getItem("carbonUsername");
-    const welcomeText = document.getElementById("welcomeText");
-    const toast = document.getElementById("toast");
-
-    if (name) {
-      welcomeText.textContent = `Hello, ${name}`;
-      toast.textContent = `🌱 Welcome back, ${name}!`;
-      toast.style.display = "block";
-
-      // Hide toast after 3 seconds
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    } else {
-      welcomeText.textContent = "Hello, Guest";
-    }
-  };
-
-  function logout() {
-    localStorage.removeItem("carbonUsername"); // Clear saved name
-    alert("You have been logged out.");
-    window.location.href = "index.html";
-  }
-</script>
-
-
