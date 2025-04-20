@@ -109,21 +109,37 @@
       window.location.href = "index.html";
     }
   </script>
+  <div id="toast" style="position: fixed; top: 20px; right: 20px; background-color: #2d6a4f; color: white; padding: 12px 20px; border-radius: 6px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+    Welcome back!
+  </div>
+  
 </body>
 </html>
 <script>
-  function logout() {
-    alert("You have been logged out.");
-    localStorage.removeItem("username");
-    window.location.href = "index.html";
-  }
-
-  // Set username greeting on page load
   window.onload = function () {
-    const username = localStorage.getItem("username");
-    if (username) {
-      document.getElementById("greeting").textContent = `Hello, ${username}`;
+    const name = localStorage.getItem("carbonUsername");
+    const welcomeText = document.getElementById("welcomeText");
+    const toast = document.getElementById("toast");
+
+    if (name) {
+      welcomeText.textContent = `Hello, ${name}`;
+      toast.textContent = `🌱 Welcome back, ${name}!`;
+      toast.style.display = "block";
+
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+    } else {
+      welcomeText.textContent = "Hello, Guest";
     }
   };
+
+  function logout() {
+    localStorage.removeItem("carbonUsername"); // Clear saved name
+    alert("You have been logged out.");
+    window.location.href = "index.html";
+  }
 </script>
+
 

@@ -43,29 +43,59 @@
 <body>
   <div class="form-container">
     <h2>Create Your Account</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required />
-      <input type="email" placeholder="Email Address" required />
-      <input type="password" placeholder="Password" required />
-      <input type="password" placeholder="Confirm Password" required />
+    <form id="signup-form">
+      <input type="text" id="username" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
       <button type="submit">Sign Up</button>
     </form>
   </div>
-  <input type="email" id="email" placeholder="Enter your email" required />
-<button onclick="loginUser()">Log In</button>
 
   <script>
-    function loginUser() {
-      const emailInput = document.getElementById("email");
-      const email = emailInput.value.trim();
-  
-      // Extract a username from email before "@"
-      const username = email.split("@")[0];
-      localStorage.setItem("username", username);
-  
-      window.location.href = "dashboard.html";
-    }
+    const signupForm = document.getElementById('signup-form');
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Signup successful!');
+
+          // Save token and name
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('carbonUsername', username);
+
+          // Redirect to dashboard
+          window.location.href = 'dashboard.html';
+        } else {
+          alert(`Error: ${result.msg || 'Signup failed'}`);
+        }
+      } catch (error) {
+        console.error('Signup Error:', error);
+        alert('Something went wrong. Please try again later.');
+      }
+    });
   </script>
-  
 </body>
 </html>
