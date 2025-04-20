@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>User Dashboard - Carbon Tracker</title>
   <style>
+    .btn-calculate {
+  background-color: #2d6a4f;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-calculate:hover {
+  background-color: #1b4332;
+}
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f8;
@@ -55,6 +71,10 @@
     <h1>Welcome to Your Dashboard</h1>
     <p>Track your environmental impact and progress below</p>
   </div>
+  <div style="text-align: center; margin-top: 20px;">
+    <button class="btn-calculate" onclick="window.location.href='index2.html'">🚀 Calculate My Footprint</button>
+  </div>
+  
 
   <div class="dashboard">
     <h2>Hello, [User]</h2>
