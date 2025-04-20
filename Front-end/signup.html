@@ -51,5 +51,21 @@
       <button type="submit">Sign Up</button>
     </form>
   </div>
+  <input type="email" id="email" placeholder="Enter your email" required />
+<button onclick="loginUser()">Log In</button>
+
+  <script>
+    function loginUser() {
+      const emailInput = document.getElementById("email");
+      const email = emailInput.value.trim();
+  
+      // Extract a username from email before "@"
+      const username = email.split("@")[0];
+      localStorage.setItem("username", username);
+  
+      window.location.href = "dashboard.html";
+    }
+  </script>
+  
 </body>
 </html>

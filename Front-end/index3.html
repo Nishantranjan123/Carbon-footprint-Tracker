@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carbon Footprint Calculator</title>
   <style>
     body {
@@ -26,6 +26,10 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.05);
+      <div style="text-align:center; margin-top: 30px;">
+  <button onclick="window.location.href='dashboard.html'" class="btn-submit">← Back to Dashboard</button>
+</div>
+
     }
 
     h2 {
@@ -48,7 +52,7 @@
       border-radius: 6px;
     }
 
-    .btn-submit, .btn-back {
+    .btn-submit {
       background-color: #2d6a4f;
       color: white;
       padding: 12px 20px;
@@ -57,19 +61,19 @@
       font-size: 16px;
       cursor: pointer;
       width: 100%;
-      margin-top: 10px;
     }
 
-    .btn-submit:hover, .btn-back:hover {
+    .btn-submit:hover {
       background-color: #1b4332;
     }
 
-    .result, .solution {
+    .result {
       margin-top: 20px;
       padding: 15px;
       background-color: #e9f5ee;
       border-left: 5px solid #2d6a4f;
       border-radius: 6px;
+      display: none;
     }
 
     footer {
@@ -91,7 +95,7 @@
     <h2>Enter Your Daily Activity</h2>
     <form id="carbonForm">
       <label for="travel">Travel Distance (km):</label>
-      <input type="number" id="travel" required />
+      <input type="number" id="travel" required>
 
       <label for="food">Food Type:</label>
       <select id="food" required>
@@ -101,21 +105,14 @@
       </select>
 
       <label for="energy">Electricity Used (kWh):</label>
-      <input type="number" id="energy" required />
+      <input type="number" id="energy" required>
 
       <button type="submit" class="btn-submit">Calculate Footprint</button>
     </form>
 
-    <div class="result" id="resultBox" style="display:none">
+    <div class="result" id="resultBox">
       <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
     </div>
-
-    <div class="solution" id="solutionBox" style="display:none">
-      <h4>Suggestions to Reduce Your Footprint:</h4>
-      <ul id="solutionList"></ul>
-    </div>
-
-    <button class="btn-back" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
   </div>
 
   <footer>
@@ -131,35 +128,14 @@
       const energy = parseFloat(document.getElementById('energy').value);
 
       let footprint = 0;
-      footprint += travel * 0.12;
-      footprint += food === 'non-veg' ? 5 : 2;
-      footprint += energy * 0.45;
+      footprint += travel * 0.12;          // Travel: 0.12 kg CO2/km
+      footprint += food === 'non-veg' ? 5 : 2; // Food: 5 or 2 kg CO2/day
+      footprint += energy * 0.45;          // Energy: 0.45 kg CO2/kWh
 
       document.getElementById('footprintValue').textContent = footprint.toFixed(2);
       document.getElementById('resultBox').style.display = 'block';
-      document.getElementById('solutionBox').style.display = 'block';
-
-      const solutionList = document.getElementById('solutionList');
-      solutionList.innerHTML = '';
-
-      if (travel > 10) {
-        solutionList.innerHTML += '<li>Consider using public transport or carpooling.</li>';
-      } else {
-        solutionList.innerHTML += '<li>Great job minimizing travel emissions!</li>';
-      }
-
-      if (food === 'non-veg') {
-        solutionList.innerHTML += '<li>Try reducing meat intake; plant-based diets have lower emissions.</li>';
-      } else {
-        solutionList.innerHTML += '<li>Vegetarian diets are climate-friendly. Keep it up!</li>';
-      }
-
-      if (energy > 3) {
-        solutionList.innerHTML += '<li>Consider switching to energy-efficient appliances.</li>';
-      } else {
-        solutionList.innerHTML += '<li>Your electricity use is within a sustainable range.</li>';
-      }
     });
   </script>
+
 </body>
 </html>
