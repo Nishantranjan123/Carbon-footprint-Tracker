@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config(); // Load environment variables
 
-const MONGODB_URL = process.env.MONGO_URI; // Use MONGO_URI
+const MONGODB_URL = process.env.MONGODB_URL; // Use MONGODB_URL
 
 const connectionToMongodb = () => {
     console.log("MongoDB URL:", MONGODB_URL); // Log the URL to check if it's defined
