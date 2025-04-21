@@ -2,74 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carbon Footprint Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carbon Footprint Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f8;
       margin: 0;
-      padding: 0;
     }
 
-    header {
-      background-color: #2d6a4f;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-    }
-
-    h2 {
-      text-align: center;
+    .site-name {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 24px;
       color: #2d6a4f;
-      margin-bottom: 20px;
     }
 
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: 500;
+    .site-name img {
+      height: 40px;
+      margin-right: 10px;
     }
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav ul li a,
+    .btn {
+      text-decoration: none;
+      color: #2d6a4f;
+      padding: 8px 16px;
       border-radius: 6px;
+      transition: all 0.3s ease-in-out;
     }
 
-    .btn-submit, .btn-back {
+    .btn {
       background-color: #2d6a4f;
       color: white;
-      padding: 12px 20px;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
     }
 
-    .btn-submit:hover, .btn-back:hover {
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #2d6a4f;
+      color: #2d6a4f;
+    }
+
+    .btn-outline:hover,
+    .btn:hover,
+    nav ul li a:hover {
       background-color: #1b4332;
+      color: white;
+      transform: scale(1.05);
     }
 
-    .result, .solution {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e9f5ee;
-      border-left: 5px solid #2d6a4f;
-      border-radius: 6px;
+    section {
+      padding: 60px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      background: linear-gradient(to right, #d8f3dc, #b7e4c7);
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #1b4332;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #344e41;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      color: #2d6a4f;
+      margin-bottom: 15px;
+    }
+
+    .section-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #444;
+      line-height: 1.6;
+      text-align: center;
     }
 
     footer {
@@ -81,175 +132,93 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <h1>Carbon Footprint Calculator</h1>
+    <nav>
+      <div class="site-name">
+        <img src="logo.png" alt="Logo" />
+        Carbon Tracker
+      </div>
+      <ul id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li id="auth-links"></li>
+      </ul>
+    </nav>
   </header>
 
-  <div class="container">
-    <h2>Enter Your Daily Activity</h2>
-    <form id="carbonForm">
-      <label for="travel">Travel Distance (km):</label>
-      <input type="number" id="travel" required />
+  <main>
+    <!-- HOME Section -->
+    <section class="hero" id="home">
+      <h1>Calculate Your Daily Impact</h1>
+      <p>A platform that empowers you to monitor and reduce your carbon footprint through simple daily tracking.</p>
+      <div class="hero-buttons">
+        <button class="btn" id="calculate-btn">Calculate My Footprint</button>
+        <button class="btn" onclick="window.location.href='features.html'">Get Details</button>
+      </div>
+    </section>
 
-      <label for="vehicleType">Type of Vehicle:</label>
-      <select id="vehicleType">
-        <option value="">-- Select --</option>
-        <option value="electric">Electric</option>
-        <option value="hybrid">Hybrid</option>
-        <option value="gasoline">Gasoline</option>
-      </select>
+    <!-- ABOUT Section -->
+    <section id="about">
+      <h2 class="section-title">About Carbon Footprint Tracker</h2>
+      <p class="section-text">
+        Our mission is to help individuals and communities understand their environmental impact.
+        By calculating the carbon emissions associated with travel, diet, energy, and consumption, we provide real-time
+        suggestions and progress tracking that encourages sustainable living. This platform uses reliable emission
+        factors and personalized insights to promote eco-conscious behavior and climate action.
+      </p>
+    </section>
 
-      <label for="food">Food Type:</label>
-      <select id="food" required>
-        <option value="">-- Select --</option>
-        <option value="veg">Vegetarian</option>
-        <option value="non-veg">Non-Vegetarian</option>
-        <option value="vegan">Vegan</option>
-        <option value="pescatarian">Pescatarian</option>
-      </select>
-
-      <label for="energy">Electricity Used (kWh):</label>
-      <input type="number" id="energy" required />
-
-      <label for="waterUsage">Average Daily Water Usage (liters):</label>
-      <input type="number" id="waterUsage" required />
-
-      <label for="recycling">Percentage of Waste Recycled (%):</label>
-      <input type="number" id="recycling" min="0" max="100" required />
-
-      <button type="submit" class="btn-submit">Calculate Footprint</button>
-    </form>
-
-    <div class="result" id="resultBox" style="display:none">
-      <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
-      <button class="btn-submit" id="calculateAgainBtn">Calculate Again</button>
-    </div>
-
-    <div class="solution" id="solutionBox" style="display:none">
-      <h4>Suggestions to Reduce Your Footprint:</h4>
-      <ul id="solutionList"></ul>
-    </div>
-
-    <button class="btn-back" onclick="window.location.href='dashboard.html'">← Back to Dashboard</button>
-  </div>
+    <!-- CONTACT Section -->
+    <section id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-text">
+        Have questions, suggestions, or feedback? Reach out to us at  
+        <strong><a href="mailto:support@carbontracker.com">support@carbontracker.com</a></strong>  
+        or fill out our feedback form.  
+        We're committed to building a better, greener future with you.
+      </p>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Carbon Tracker. Greener choices start with you.
+    &copy; 2025 Carbon Tracker. All rights reserved.
   </footer>
 
   <script>
-    document.getElementById('carbonForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+    window.onload = function() {
+      const token = localStorage.getItem('token');
+      const authLinks = document.getElementById('auth-links');
 
-    const travel = parseFloat(document.getElementById('travel').value);
-    const vehicleType = document.getElementById('vehicleType').value;
-    const food = document.getElementById('food').value;
-    const energy = parseFloat(document.getElementById('energy').value);
-    const waterUsage = parseFloat(document.getElementById('waterUsage').value);
-    const recycling = parseFloat(document.getElementById('recycling').value);
+      if (token) {
+        authLinks.innerHTML = `
+          <button class="btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+          <button class="btn btn-outline" onclick="logout()">Log Out</button>
+        `;
+      } else {
+        authLinks.innerHTML = `
+          <button class="btn" onclick="window.location.href='signin.html'">Sign In</button>
+          <button class="btn btn-outline" onclick="window.location.href='signup.html'">Sign Up</button>
+        `;
+      }
 
-    // Validate input values
-    if (isNaN(travel) || isNaN(energy) || isNaN(waterUsage) || isNaN(recycling)) {
-        alert('Please enter valid numbers for travel, energy, water usage, and recycling.');
-        return;
-    }
-
-    if (food === '') {
-        alert('Please select a food type.');
-        return;
-    }
-
-    // Calculate the footprint
-    let footprint = 0;
-    footprint += travel * 0.12; // Example calculation for travel
-    footprint += food === 'non-veg' ? 5 : (food === 'vegan' ? 1 : 2); // Example calculation for food
-    footprint += energy * 0.45; // Example calculation for energy
-    footprint += waterUsage * 0.02; // Example calculation for water usage
-    footprint -= recycling * 0.1; // Reduce footprint based on recycling percentage
-
-    // Adjust footprint based on vehicle type
-    if (vehicleType === 'electric') {
-        footprint -= 1; // Example reduction for electric vehicles
-    } else if (vehicleType === 'hybrid') {
-        footprint -= 0.5; // Example reduction for hybrid vehicles
-    }
-
-    // Prepare the activity data to send to the backend
-    const activityData = {
-        travel,
-        food,
-        energy,
+      document.getElementById('calculate-btn').onclick = function() {
+        if (token) {
+          window.location.href = 'index2.html';
+        } else {
+          window.location.href = 'signin.html';
+        }
+      };
     };
 
-    // Send the activity data to the backend
-    const token = localStorage.getItem('token');
-    try {
-        const response = await fetch('http://localhost:5000/api/activity', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(activityData),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            alert(`Error saving activity: ${errorData.msg}`);
-            return;
-        }
-
-        // Store results in local storage
-        localStorage.setItem('footprintValue', footprint.toFixed(2));
-        
-        // Prepare suggestions based on the input
-        const solutionList = [];
-        if (travel > 10) {
-            solutionList.push('Consider using public transport or carpooling.');
-        } else {
-            solutionList.push('Great job minimizing travel emissions!');
-        }
-
-        if (food === 'non-veg') {
-            solutionList.push('Try reducing meat intake; plant-based diets have lower emissions.');
-        } else if (food === 'vegan') {
-            solutionList.push('Great choice! Vegan diets are very climate-friendly.');
-        } else {
-            solutionList.push('Vegetarian diets are climate-friendly. Keep it up!');
-        }
-
-        if (energy > 3) {
-            solutionList.push('Consider switching to energy-efficient appliances to reduce your energy consumption.');
-            solutionList.push('Unplug devices when not in use to save energy.');
-            solutionList.push('Consider using LED bulbs instead of incandescent ones, as they use less energy.');
-        } else {
-            solutionList.push('Your electricity use is within a sustainable range. Great job!');
-        }
-
-        if (waterUsage > 100) {
-            solutionList.push('Consider reducing water usage; small changes can make a big difference.');
-        } else {
-            solutionList.push('Your water usage is within a sustainable range. Great job!');
-        }
-
-        if (recycling < 50) {
-            solutionList.push('Try to increase your recycling efforts to reduce waste.');
-        } else {
-          solutionList.push('Excellent! Keep up the good work with recycling.');
-        }
-
-        // Store suggestions in local storage
-        localStorage.setItem('solutionList', JSON.stringify(solutionList));
-
-        // Redirect to results page
-        window.location.href = 'result.html'; // Ensure this line is present
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to save activity. Please try again later.');
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('carbonUsername');
+      alert("You have been logged out.");
+      window.location.reload();
     }
-});
   </script>
 </body>
 </html>
