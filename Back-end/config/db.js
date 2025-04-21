@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+require("dotenv").config(); // Load environment variables
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
-  }
+const MONGODB_URL = process.env.MONGO_URI; // Use MONGO_URI
+
+const connectionToMongodb = () => {
+    console.log("MongoDB URL:", MONGODB_URL); // Log the URL to check if it's defined
+    mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => console.log("MongoDB connection successful"))
+        .catch(err => console.log("MongoDB connection unsuccessful", err));
 };
 
-module.exports = connectDB;
+module.exports = connectionToMongodb; // Export the function directly

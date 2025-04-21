@@ -3,77 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carbon Footprint Calculator</title>
+  <title>Carbon Footprint Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f8;
       margin: 0;
-      padding: 0;
     }
 
-    header {
-      background-color: #2d6a4f;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-      <div style="text-align:center; margin-top: 30px">
-  <button onclick="window.location.href='dashboard.html'" class="btn-submit">← Back to Dashboard</button>
-</div>
-
-    }
-
-    h2 {
-      text-align: center;
+    .site-name {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 24px;
       color: #2d6a4f;
-      margin-bottom: 20px;
     }
 
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: 500;
+    .site-name img {
+      height: 90px;
+      margin-right: 10px;
     }
 
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav ul li a,
+    .btn {
+      text-decoration: none;
+      color: #2d6a4f;
+      padding: 8px 16px;
       border-radius: 6px;
+      transition: all 0.3s ease-in-out;
     }
 
-    .btn-submit {
+    .btn {
       background-color: #2d6a4f;
       color: white;
-      padding: 12px 20px;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      width: 100%;
     }
 
-    .btn-submit:hover {
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #2d6a4f;
+      color: #2d6a4f;
+    }
+
+    .btn-outline:hover,
+    .btn:hover,
+    nav ul li a:hover {
       background-color: #1b4332;
+      color: white;
+      transform: scale(1.05);
     }
 
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e9f5ee;
-      border-left: 5px solid #2d6a4f;
-      border-radius: 6px;
-      display: none;
+    section {
+      padding: 60px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      background: linear-gradient(to right, #d8f3dc, #b7e4c7);
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #1b4332;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #344e41;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      color: #2d6a4f;
+      margin-bottom: 15px;
+    }
+
+    .section-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #444;
+      line-height: 1.6;
+      text-align: center;
     }
 
     footer {
@@ -85,53 +132,59 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    <h1>Carbon Footprint Calculator</h1>
+    <nav>
+      <div class="site-name">
+        <img src="logo.png.png" alt="Logo" />
+        Carbon Footprint Tracker
+      </div>
+      <ul id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li id="auth-links"></li>
+      </ul>
+    </nav>
   </header>
 
-  <div class="container">
-    <h2>Enter Your Daily Activity</h2>
-    <form id="carbonForm">
-      <label for="travel">Travel Distance (km):</label>
-      <input type="number" id="travel" required>
-  
-      <label for="vehicleType">Vehicle Type:</label>
-      <select id="vehicleType" required>
-        <option value="">-- Select --</option>
-        <option value="electric">Electric</option>
-        <option value="hybrid">Hybrid</option>
-        <option value="gasoline">Gasoline</option>
-      </select>
-  
-      <label for="food">Food Type:</label>
-      <select id="food" required>
-        <option value="">-- Select --</option>
-        <option value="veg">Vegetarian</option>
-        <option value="non-veg">Non-Vegetarian</option>
-        <option value="vegan">Vegan</option>
-      </select>
-  
-      <label for="energy">Electricity Used (kWh):</label>
-      <input type="number" id="energy" required>
-  
-      <label for="waterUsage">Water Usage (liters):</label>
-      <input type="number" id="waterUsage" required>
-  
-      <label for="recycling">Recycling Percentage (%):</label>
-      <input type="number" id="recycling" required>
-  
-      <button type="submit" class="btn-submit">Calculate Footprint</button>
-    </form>
-  
-    <div class="result" id="resultBox">
-      <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
-    </div>
-  </div>
+  <main>
+    <!-- HOME Section -->
+    <section class="hero" id="home">
+      <h1>Calculate Your Daily Impact</h1>
+      <p>A platform that empowers you to monitor and reduce your carbon footprint through simple daily tracking.</p>
+      <div class="hero-buttons">
+        <button class="btn" id="calculate-btn">Calculate My Footprint</button>
+        <button class="btn" onclick="window.location.href='features.html'">Get Details</button>
+      </div>
+    </section>
+
+    <!-- ABOUT Section -->
+    <section id="about">
+      <h2 class="section-title">About Carbon Footprint Tracker</h2>
+      <p class="section-text">
+        Our mission is to help individuals and communities understand their environmental impact.
+        By calculating the carbon emissions associated with travel, diet, energy, and consumption, we provide real-time
+        suggestions and progress tracking that encourages sustainable living. This platform uses reliable emission
+        factors and personalized insights to promote eco-conscious behavior and climate action.
+      </p>
+    </section>
+
+    <!-- CONTACT Section -->
+    <section id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-text">
+        Have questions, suggestions, or feedback? Reach out to us at  
+        <strong><a href="mailto:support@carbontracker.com">support@carbontracker.com</a></strong>  
+        or fill out our feedback form.  
+        We're committed to building a better, greener future with you.
+      </p>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 Carbon Tracker. Greener choices start with you.
+    &copy; 2025 Carbon Tracker. All rights reserved.
   </footer>
 
   <script>
@@ -242,6 +295,5 @@
  }
 });  
   </script>
-
 </body>
 </html>
