@@ -11,7 +11,8 @@ const addActivity = async (req, res) => {
     const newActivity = new Activity({
         userId,
         activityData: { travel, food, energy, footprint },
-    });
+        date: new Date(), // explicitly set current timestamp
+      });      
 
     try {
         await newActivity.save(); // Save the activity to the database
