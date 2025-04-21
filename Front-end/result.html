@@ -65,7 +65,13 @@
       color: white;
       margin-top: 40px;
     }
+
+    #emissionChart {
+      max-width: 400px;
+      margin: 20px auto;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -78,6 +84,8 @@
     <div class="result">
       <p><strong>Your estimated carbon footprint is:</strong> <span id="footprintValue"></span> kg CO₂/day</p>
     </div>
+
+    <canvas id="emissionChart"></canvas>
 
     <div class="solution">
       <h4>Suggestions to Reduce Your Footprint:</h4>
@@ -111,6 +119,48 @@
     document.getElementById('calculateAgainBtn').onclick = function() {
       window.location.href = 'index2.html'; // Redirect to the calculation page
     };
+
+    // Create a pie chart for emission distribution
+    const ctx = document.getElementById('emissionChart').getContext('2d');
+    const emissionData = {
+      labels: ['Transportation', 'Electricity', 'Industry', 'Agriculture', 'Waste'],
+      datasets: [{
+        label: 'Emission Distribution',
+        data: [25, 30, 20, 15, 10], // Example data representing percentage of emissions
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    const emissionChart = new Chart(ctx, {
+      type: 'pie',
+      data: emissionData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Distribution of Emissions'
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>
