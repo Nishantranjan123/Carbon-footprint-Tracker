@@ -14,7 +14,7 @@ document.getElementById('activityForm').addEventListener('submit', async (e) => 
   const token = localStorage.getItem('token'); // Get the token from local storage
 
   try {
-      const response = await fetch('http://localhost:5000/api/activity', {
+      const response = await fetch('https://carbon-footprint-tracker-rqfh.onrender.com/api/activity', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
