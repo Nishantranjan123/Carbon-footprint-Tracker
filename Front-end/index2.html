@@ -177,7 +177,7 @@
  // Send the activity data to the backend
  const token = localStorage.getItem('token');
  try {
-     const response = await fetch('http://localhost:5000/api/activity', {
+     const response = await fetch('https://carbon-footprint-tracker-rqfh.onrender.com/api/activity', {
          method: 'POST',
          headers: {
              'Content-Type': 'application/json',
