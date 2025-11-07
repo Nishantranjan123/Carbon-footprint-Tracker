@@ -30,11 +30,7 @@ Built to promote environmental awareness and sustainable living through data-dri
 
 ---
 
-## ⚙️ Installation & Setup
 
-Clone the repository and install dependencies:
-
-```bash
 git clone https://github.com/Nishantranjan123/Carbon-footprint-Tracker.git
 cd Carbon-footprint-Tracker
 npm install
